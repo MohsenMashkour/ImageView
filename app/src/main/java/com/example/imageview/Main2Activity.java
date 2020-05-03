@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
@@ -33,7 +34,8 @@ public class Main2Activity extends AppCompatActivity {
     CheckBox checkBox1,checkBox2,checkBox3;
     ToggleButton tglBtn;
     String val = "";
-    RelativeLayout rltvlayout;
+   // RelativeLayout rltvlayout;
+    LinearLayout rltvlayout;
     Button btnTimeP;
     NotificationManagerCompat notificationManager;
     MediaPlayer mediaPlayer;
@@ -63,13 +65,13 @@ public class Main2Activity extends AppCompatActivity {
         tglBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked == true)
+                if(isChecked)
                     mediaPlayer.start();
                     rltvlayout.setBackgroundColor(Color.DKGRAY);
                     //state = true;
 
 
-                if (isChecked == false)
+                if (!isChecked)
                     mediaPlayer.pause();
                     rltvlayout.setBackgroundColor(Color.WHITE);
 
@@ -91,8 +93,9 @@ public class Main2Activity extends AppCompatActivity {
     private void nextActivity() {
         Intent intent;
         intent = new Intent(this, ActivityTp.class);
+        startActivity(intent);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(Main2Activity.this,0,intent,0);
+       // PendingIntent pendingIntent = PendingIntent.getActivity(Main2Activity.this,0,intent,0);
 
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
@@ -102,14 +105,11 @@ public class Main2Activity extends AppCompatActivity {
                 .setContentText("Activity jadid")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setContentIntent(pendingIntent)
+                //.setContentIntent(pendingIntent)
+                .setLights(0,2000,200)
                 //.setSound(Uri.parse("android.resource://com.example.imageview/raw/reng"))
                 .setAutoCancel(true)
-
-
                 .build();
-
-
 
         notificationManager.notify(1, notification);
 
