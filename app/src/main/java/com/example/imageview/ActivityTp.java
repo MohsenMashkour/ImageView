@@ -87,7 +87,11 @@ public class ActivityTp extends AppCompatActivity {
         AlarmManager alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(ActivityTp.this,AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        if (c.before(Calendar.getInstance())){
+            c.add(Calendar.DATE,1);
+        }
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
+
     }
 
     void cancelAlarm(Calendar c){
